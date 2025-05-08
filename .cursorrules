@@ -1,0 +1,90 @@
+{
+  "$schema": "https://app.cursor.sh/cursorrules.schema.json",
+  "projectType": "react-native",
+  "rules": [
+    {
+      "description": "Use TypeScript throughout the app for type safety and editor support",
+      "filePatterns": ["**/*.ts", "**/*.tsx"],
+      "enforce": true
+    },
+    {
+      "description": "Follow a modular folder structure for scalability",
+      "folderStructure": {
+        "src": {
+          "api": {},
+          "components": {},
+          "features": {
+            "scores": {},
+            "teams": {},
+            "games": {}
+          },
+          "hooks": {},
+          "navigation": {},
+          "screens": {},
+          "state": {},
+          "utils": {},
+          "assets": {
+            "images": {},
+            "icons": {}
+          }
+        }
+      }
+    },
+    {
+      "description": "Use React Navigation for managing screens across iOS and Android",
+      "packages": ["@react-navigation/native", "@react-navigation/native-stack"]
+    },
+    {
+      "description": "Use Zustand for lightweight state management",
+      "packages": ["zustand"]
+    },
+    {
+      "description": "Use React Query (TanStack) for fetching and caching live game data",
+      "packages": ["@tanstack/react-query"]
+    },
+    {
+      "description": "Use Axios for making API requests",
+      "packages": ["axios"]
+    },
+    {
+      "description": "Use date-fns for game time formatting and comparison",
+      "packages": ["date-fns"]
+    },
+    {
+      "description": "Support iOS and Android using CocoaPods and Gradle respectively",
+      "platforms": ["ios", "android"],
+      "setup": {
+        "ios": {
+          "commands": ["cd ios && pod install"]
+        },
+        "android": {}
+      }
+    },
+    {
+      "description": "Use NativeWind for Tailwind-style styling in React Native",
+      "packages": ["nativewind"],
+      "filePatterns": ["**/*.tsx"]
+    },
+    {
+      "description": "Enforce ESLint and Prettier for consistent formatting and linting",
+      "packages": ["eslint", "prettier"],
+      "enforce": true
+    },
+    {
+      "description": "All components should use PascalCase and be named clearly by purpose",
+      "filePatterns": ["**/components/**/*.tsx"],
+      "namingConvention": "PascalCase"
+    },
+    {
+      "description": "Use environment variables (.env) for storing API keys and app settings",
+      "filePatterns": [".env", ".env.*"]
+    },
+    {
+      "description": "Screens should only import from components, hooks, state, and features. Avoid circular imports.",
+      "filePatterns": ["src/screens/**/*.tsx"],
+      "importRules": {
+        "allowedImports": ["components", "hooks", "features", "state", "navigation", "utils"]
+      }
+    }
+  ]
+}
