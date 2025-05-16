@@ -1,0 +1,88 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cursor-insight/cursorrules/main/schema.json",
+    "name": "Diamond App (Expo)",
+    "description": "College baseball score tracking app built with Expo, EAS Build, Zustand, TanStack Query, Supabase, and an Express + Redis backend.",
+    "tags": ["expo", "react-native", "eas", "zustand", "tanstack-query", "supabase", "nodejs", "express", "redis", "security", "accessibility"],
+  
+    "language": "typescript",
+  
+    "rules": [
+      {
+        "pattern": "**/app/**",
+        "description": "All screens and routes should reside in the app directory following the app directory convention (e.g., app/index.tsx).",
+        "required": true
+      },
+      {
+        "pattern": "**/src/components/**",
+        "description": "Components must be presentation-only. No API calls, global state mutations, or route logic allowed.",
+        "required": true
+      },
+      {
+        "pattern": "**/src/store/**",
+        "description": "Zustand stores must be colocated by domain (e.g., `useFavoritesStore.ts`) and initialized with persistence where applicable.",
+        "required": true
+      },
+      {
+        "pattern": "**/src/hooks/api/**",
+        "description": "TanStack Query must be used to handle all async data fetching from REST APIs (Highlightly or custom).",
+        "required": true
+      },
+      {
+        "pattern": "**/src/lib/**",
+        "description": "All Axios and Supabase client configuration must be centralized here (e.g., `api.ts`, `supabaseClient.ts`).",
+        "required": true
+      },
+      {
+        "pattern": "**/src/types/**",
+        "description": "All shared interfaces and domain models (e.g., Game, Team, Player) live here.",
+        "required": true
+      },
+      {
+        "pattern": "**/src/utils/**",
+        "description": "Only pure helper functions such as mappers, formatters, and validators belong here.",
+        "required": false
+      },
+      {
+        "pattern": "**/src/styles/**",
+        "description": "Tailwind configuration and theme helpers should live here for NativeWind setup.",
+        "required": false
+      },
+      {
+        "pattern": ".env",
+        "description": "Secrets and configuration (API keys, Supabase URLs) must be stored in `.env` and accessed securely via process.env or Expo config plugins.",
+        "required": true
+      },
+      {
+        "pattern": ".gitignore",
+        "description": "Ensure `.env`, `.DS_Store`, `node_modules/`, `.expo/`, and `dist/` are ignored from version control.",
+        "required": true
+      }
+    ],
+  
+    "guidelines": {
+      "naming": {
+        "components": "PascalCase",
+        "hooks": "useCamelCase",
+        "zustandStores": "useFeatureStore",
+        "apiHooks": "use[Entity]Query",
+        "files": "kebab-case"
+      },
+      "structure": {
+        "enforceLayering": true,
+        "layers": ["UI (Expo)", "Hooks/State", "API", "Backend"],
+        "notes": "Expo screens must remain declarative. API logic should be abstracted out using hooks and shared query logic."
+      },
+      "goodPractices": [
+        "Use functional React Native components with hooks.",
+        "All async logic must use TanStack Query with stale-while-revalidate patterns.",
+        "All state must be persisted or derived via Zustand or TanStack Query, not global variables.",
+        "Environment variables must be accessed via `.env` and should never be hardcoded.",
+        "Secure config must be ignored in `.gitignore` and redacted in logs or uploads.",
+        "Design for accessibility using accessible roles, contrast guidelines, and touch targets.",
+        "Use `expo-secure-store` or `AsyncStorage` for client-side persistence (depending on sensitivity).",
+        "Sentry must be initialized only in production mode, using `sentry-expo` with source maps enabled in EAS.",
+        "Redis and Supabase interactions must be scoped to backend services only, never called directly from the client.",
+        "Before you propose changes, take a moment toensure they are correct and relevant to the project. We do not need quick answers, we need correct ones."
+      ]
+    }
+  }
